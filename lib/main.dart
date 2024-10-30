@@ -45,10 +45,18 @@ class _EckDState extends State<EckD> {
   String gDSC() {
     final now = DateTime.now();
     final fMB = (now.minute ~/ 5) * 5;
-    final dSC = '${now.year % 100}${now.month.toString().padLeft(2, '0')}'
-        '${now.day.toString().padLeft(2, '0')}${now.hour.toString().padLeft(2, '0')}'
-        '${fMB.toString().padLeft(2, '0')}';
-    return dSC;
+
+    final y = (now.year % 100) + 7;
+    final m = (now.month * 3) % 12 + 1;
+    final d = (now.day * 5) % 31 + 1;
+    final h = (now.hour + d) % 24;
+    final mb = (fMB * 7) % 60;
+
+    final dsc = '$y${m.toString().padLeft(2, '0')}'
+        '${d.toString().padLeft(2, '0')}${h.toString().padLeft(2, '0')}'
+        '${mb.toString().padLeft(2, '0')}';
+
+    return dsc;
   }
 
   @override
